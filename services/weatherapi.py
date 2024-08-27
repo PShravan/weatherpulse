@@ -128,7 +128,7 @@ def get_weather_data_via_api(location: str):
         )
     if response.status_code == 400 and response_json["error"]["code"] == 1006:
         raise NoLocationFoundException("No Location Found!")
-    logger.error(f"WeatherAPI failure! StatusCode: {response.status_code}, Error:{response_json.get("error")}")
+    logger.error(f"WeatherAPI failure! StatusCode: {response.status_code}, Error:{response_json.get('error')}")
     raise Exception(f"Something went wrong!")
 
 
@@ -327,5 +327,5 @@ def get_weather_forecast_data_via_api(location: str, days=1):
         )
     if response.status_code == 400 and response_json["error"]["code"] == 1006:
         raise NoLocationFoundException("No Location Found!")
-    logger.error(f"WeatherAPI failure! StatusCode: {response.status_code}, Error:{response_json.get("error")}")
+    logger.error(f"WeatherAPI failure! StatusCode: {response.status_code}, Error:{response_json.get('error')}")
     raise Exception(f"Something went wrong!")
