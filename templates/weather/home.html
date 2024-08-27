@@ -1,0 +1,143 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<nav class="navbar bg-body-tertiary">
+    <div class="container-fluid">
+        <a class="navbar-brand">WeatherPulse</a>
+        <form class="d-flex" method="POST">
+            {% csrf_token %}
+            <input class="form-control me-2" type="search" name="location" placeholder="Search Location" aria-label="Search">
+            <button class="btn btn-outline-success" type="submit">Search</button>
+        </form>
+        </div>
+    </nav>
+
+    {% if error_message %}
+        <div class="alert alert-danger" role="alert">
+            {{ error_message }}
+        </div>
+    {% endif %}
+
+    <h1>Weather in {{ location }} as of {{latest_weather.record_timestamp_to_asia_kolkata|date:"M j, Y, g:i a" }}</h1>
+    
+    {% if latest_weather %}
+        <p>Temperature: {{ latest_weather.temperature }}°C ({{ latest_weather.temperature_in_fahrenheit }}°F)</p>
+        <p>Wind: {{ latest_weather.wind_speed }} km/h ({{ latest_weather.wind_speed_in_mph }} mph)</p>
+        <p>Pressure: {{ latest_weather.pressure }} millibars</p>
+        <p>Precipitation: {{ latest_weather.precipitation }} mm</p>
+        <p>Humidity: {{ latest_weather.humidity }}%</p>
+        <p>Dewpoint: {{ latest_weather.dewpoint }}°C</p>
+        
+        <!-- Display Alerts -->
+        {% if weather_alert %}
+            <div class="alert alert-danger" role="alert">
+                {{ weather_alert }}
+            </div>
+            <!-- <p><strong>{{ weather_alert }}</strong></p> -->
+        {% endif %}
+
+        <!-- Display Trends -->
+        {% if weather_trends %}
+            <h3>Weather Trends (Last 24 hours)</h3>
+            <p>Average Temperature: {{ weather_trends.average_temperature }}°C</p>
+            <p>Average Wind: {{ weather_trends.average_wind }} km/h</p>
+            <p>Average Pressure: {{ weather_trends.average_pressure }} millibars</p>
+            <p>Average Precipitation: {{ weather_trends.average_precipitation }} mm</p>
+            <p>Average Humidity: {{ weather_trends.average_humidity }}%</p>
+        {% endif %}
+
+        <div class="container mt-5">
+            <div class="card shadow-lg">
+                <div class="card-header">
+                    Weather Today in {{ location|capfirst }}, {{ latest_weather.region }}
+                </div>
+                <div class="card-body">
+                    <!-- Weather Header -->
+                    <!-- <h4 class="card-title">Weather Today in {{ location|capfirst }}, {{ latest_weather.region }}</h4> -->
+                    <p>Feels Like</p>
+                    <h1>{{ latest_weather.temperature_feels_like }}°C</h1>
+                    <p></p>
+                    <p></p>
+                    <div class="row">
+                        <!-- <div class="col-md-6">
+                            
+                            <ul class="list-unstyled">
+                                <li><strong>Temperature:</strong> --/{{ latest_weather.temperature }}</li>
+                                <li><strong>Humidity:</strong> {{ latest_weather.humidity }}%</li>
+                                <li><strong>Pressure:</strong> 
+                                    <span>{{ latest_weather.pressure }} mb</span>
+                                    <i class="fas fa-arrow-up"></i>
+                                </li>
+                                <li><strong>Visibility:</strong> {{ latest_weather.visibility }} km</li>
+                            </ul>
+                        </div>
+                        <div class="col-md-6">
+                            
+                            <ul class="list-unstyled">
+                                <li><strong>Wind:</strong> {{ latest_weather.wind_speed }} km/h</li>
+                                <li><strong>Dew Point:</strong> {{ latest_weather.dewpoint }}°C</li>
+                                <li><strong>UV Index:</strong> 
+                                    <span>{{ latest_weather.uv_index }} of 11</span>
+                                    <i class="fas fa-arrow-up"></i>
+                                </li>
+                                <li><strong>Visibility:</strong> {{ latest_weather.visibility }} km</li>
+                            </ul>
+                        </div> -->
+                        <div class="col-md-6">
+                            <div class="d-flex justify-content-evenly align-items-center">
+                                <div>
+                                    <h5>Temperature</h5>
+                                    <p>{{ latest_weather.temperature }}°C</p>
+                                </div>
+                                <div>
+                                    <h5>Humidity</h5>
+                                    <p>{{ latest_weather.humidity }}%</p>
+                                </div>
+                            </div>
+        
+                            <div class="d-flex justify-content-evenly align-items-center">
+                                <div>
+                                    <h5>Pressure</h5>
+                                    <p>{{ latest_weather.pressure }} mb</p>
+                                </div>
+                                <div>
+                                    <h5>Visibility</h5>
+                                    <p>{{ latest_weather.visibility }} km</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="d-flex justify-content-evenly align-items-center">
+                                <div>
+                                    <h5>Wind</h5>
+                                    <p>{{latest_weather.wind_direction }} {{ latest_weather.wind_speed }} km/h</p>
+                                </div>
+                                <div>
+                                    <h5>Dew Point</h5>
+                                    <p>{{ latest_weather.dewpoint }}°C</p>
+                                </div>
+                            </div>
+        
+                            <div class="d-flex justify-content-evenly align-items-center">
+                                <div>
+                                    <h5>UV Index</h5>
+                                    <p>{{ latest_weather.uv_index }} of 11</p>
+                                </div>
+                                <!-- <div>
+                                    <h5>Moon Phase</h5>
+                                    <p>{{ latest_weather.moon_phase }}</p>
+                                </div> -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        
+    {% else %}
+        <p>No latest_weather data available for {{ location }}.</p>
+    {% endif %}
+    
+{% endblock %}

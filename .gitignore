@@ -1,0 +1,48 @@
+# Python bytecode
+*.pyc
+*.pyo
+*.pyd
+__pycache__/
+
+# Django stuff:
+*.log
+local_settings.py
+db.sqlite3
+media/
+staticfiles/
+
+# Environment variables
+.env
+
+# IDEs and editors
+.vscode/
+.idea/
+*.sublime-workspace
+*.sublime-project
+
+# System files
+.DS_Store
+Thumbs.db
+
+# Jupyter Notebook
+.ipynb_checkpoints
+
+# Python virtual environments
+venv/
+env/
+ENV/
+.venv/
+.python-version
+
+# Pipenv
+Pipfile.lock
+
+# Pyenv
+python-version
+
+# Cython build
+build/
+dist/
+*.egg-info/
+
+# Coverage rep
