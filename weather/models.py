@@ -25,6 +25,8 @@ class LocationWeather(models.Model):
     country = models.CharField(max_length=255)
     latitude = models.DecimalField(max_digits=9, decimal_places=6, null=True, blank=True)
     longitude = models.DecimalField(max_digits=9, decimal_places=6, null=True, blank=True)
+    condition = models.CharField(max_length=300, blank=True)
+    condition_icon = models.URLField(blank=True)
     temperature = models.DecimalField(
         max_digits=5, decimal_places=2, 
         help_text="Temperature in Celsius", 
@@ -91,9 +93,9 @@ class LocationWeather(models.Model):
         return round(convert_kmph_to_mph(float(self.wind_speed)), 2)
 
     @property
-    def record_timestamp_to_asia_kolkata(self):
+    def record_time_to_asia_kolkata(self):
         kolkata_tz = pytz.timezone('Asia/Kolkata')
-        return self.record_timestamp.astimezone(kolkata_tz)
+        return self.record_timestamp.astimezone(kolkata_tz).time()
 
     def __str__(self):
         return f"{self.name} ({self.record_timestamp.strftime('%Y-%m-%d %H:%M:%S')})"
