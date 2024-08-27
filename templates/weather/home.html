@@ -76,7 +76,7 @@
                                 <!-- Additional Weather Details -->
                                 <div class="row mt-4 justify-content-between">
                                     <div class="col">
-                                        <p><i class="bi bi-wind"></i> Wind: {{ latest_weather.wind_speed }} km/h</p>
+                                        <p><i class="bi bi-wind"></i> Wind: {{ latest_weather.wind_direction }} {{ latest_weather.wind_speed }} km/h</p>
                                     </div>
                                     <div class="col">
                                         <p><i class="bi bi-moisture"></i> Humidity: {{ latest_weather.humidity }}%</p>
@@ -94,6 +94,35 @@
                                     </div>
                                     <div class="col">
                                         <p><i class="bi bi-brightness-high-fill"></i> UV Index: {{ latest_weather.uv_index }}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card shadow-lg mt-3">
+                            <div class="card-body">
+                                <!-- Current Weather Title -->
+                                <h5 class="card-title">Weather Trend  (Last 24 hours)</h5>
+                                <!-- Additional Weather Details -->
+                                <div class="row mt-4 justify-content-between">
+                                    <div class="col">
+                                        <p><i class="bi bi-thermometer"></i> Temperature: {{ weather_trends.average_temperature }}°C</p>
+                                    </div>
+                                    <div class="col">
+                                        <p><i class="bi bi-wind"></i> Wind: {{ weather_trends.average_wind }} km/h</p>
+                                    </div>
+                                    <div class="col">
+                                        <p><i class="bi bi-moisture"></i> Humidity: {{ weather_trends.average_humidity }}%</p>
+                                    </div>
+                                </div>
+                                <div class="row mt-4 justify-content-between">
+                                    <div class="col">
+                                        <p><i class="bi bi-thermometer-half"></i> Pressure: {{ weather_trends.average_pressure }} mb</p>
+                                    </div>
+                                    <div class="col">
+                                        <p><i class="bi bi-droplet"></i> Dew Point: {{ weather_trends.average_duepoint }}°</p>
+                                    </div>
+                                    <div class="col">
+                                        <p><i class="bi bi-cloud-rain"></i> Precipitation {{ weather_trends.average_precipitation }}</p>
                                     </div>
                                 </div>
                             </div>
@@ -119,16 +148,6 @@
                     </div>
                 </div>
             </div>
-
-            <!-- Display Trends -->
-            {% if weather_trends %}
-                <h3>Weather Trends (Last 24 hours)</h3>
-                <p>Average Temperature: {{ weather_trends.average_temperature }}°C</p>
-                <p>Average Wind: {{ weather_trends.average_wind }} km/h</p>
-                <p>Average Pressure: {{ weather_trends.average_pressure }} millibars</p>
-                <p>Average Precipitation: {{ weather_trends.average_precipitation }} mm</p>
-                <p>Average Humidity: {{ weather_trends.average_humidity }}%</p>
-            {% endif %}
 
         {% else %}
             <p>No latest_weather data available for {{ location }}.</p>

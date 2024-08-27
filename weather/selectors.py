@@ -25,12 +25,14 @@ def get_weather_trends(name, days=1):
         avg_pressure = weather_data.aggregate(models.Avg('pressure'))['pressure__avg']
         avg_precipitation = weather_data.aggregate(models.Avg('precipitation'))['precipitation__avg']
         avg_humidity = weather_data.aggregate(models.Avg('humidity'))['humidity__avg']
+        avg_duepoint = weather_data.aggregate(models.Avg('duepoint'))['duepoint__avg']
         return {
-            'average_temperature': avg_temp,
-            'average_wind': avg_wind,
-            'average_pressure': avg_pressure,
-            'average_precipitation': avg_precipitation,
-            'average_humidity': avg_humidity,
+            'average_temperature': round(avg_temp, 2),
+            'average_wind': round(avg_wind, 2),
+            'average_pressure': round(avg_pressure, 2),
+            'average_precipitation': round(avg_precipitation, 2),
+            'average_humidity': round(avg_humidity, 2),
+            'average_duepoint': round(avg_duepoint, 2),
         }
     return None
 
